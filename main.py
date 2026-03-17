@@ -6,6 +6,7 @@ from Routes.inwards import router as inward_router
 from Routes.outward import router as outward_router
 from Routes.outwardslip import router as slip_router
 from Routes.outwardbar import router as barcode_router
+from Auth.auth_routes import router as auth_router
 
 
 app = FastAPI()
@@ -17,3 +18,4 @@ app.include_router(inward_router)
 app.include_router(outward_router)
 app.include_router(slip_router)
 app.include_router(barcode_router)
+app.include_router(auth_router)
