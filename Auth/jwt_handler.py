@@ -1,8 +1,12 @@
 from jose import jwt
 from datetime import datetime, timedelta
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # Secret key for signing tokens
-SECRET_KEY = "3ecce1e2fe24d806dcc6e752701dc4af5185de97899fae0cf2cd915f1fa50b8f"
+SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 

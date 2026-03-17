@@ -34,6 +34,13 @@ def login(
         models.User.username == form_data.username
     ).first()
 
+    print("Entered password:", form_data.password)
+
+    if user:
+        print("DB hash:", user.hashed_password)
+        from Auth.password_handler import verify_password
+        print("Verify result:", verify_password(form_data.password, user.hashed_password))
+
     if not user:
         raise HTTPException(status_code=401, detail="Invalid username or password")
 
@@ -46,6 +53,7 @@ def login(
             "role": user.role
         }
     )
+   
 
     return {
         "access_token": token,
