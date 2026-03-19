@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Workers — Inventory System</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0e0e0e; --surface: #161616; --surface2: #1e1e1e;
+      --border: #2a2a2a; --border-focus: #e8e8e8;
+      --text: #f0f0f0; --muted: #6b6b6b;
+      --accent: #d4f54a; --accent-dark: #a8c92e;
+      --error: #ff5c5c; --success: #4af5a0;
+      --font-display: 'Syne', sans-serif; --font-mono: 'DM Mono', monospace;
+    }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-mono); min-height: 100vh; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px; pointer-events: none; z-index: 0;
+    }
+    .navbar { position: sticky; top: 0; z-index: 100; background: rgba(14,14,14,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; height: 56px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-brand { font-family: var(--font-display); font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+    .nav-brand span { color: var(--accent); font-size: 11px; font-family: var(--font-mono); font-weight: 400; letter-spacing: 0.1em; border: 1px solid var(--accent); border-radius: 4px; padding: 2px 7px; }
+    .nav-links { display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; }
+    .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .nav-user { font-size: 12px; color: var(--muted); }
+    .role-badge { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-family: var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; }
+    .role-admin { background: rgba(212,245,74,0.12); color: var(--accent); border: 1px solid rgba(212,245,74,0.3); }
+    .role-staff { background: rgba(107,107,107,0.15); color: var(--muted); border: 1px solid rgba(107,107,107,0.3); }
+    .btn-logout { font-size: 12px; color: var(--error); background: none; border: 1px solid rgba(255,92,92,0.3); border-radius: 6px; padding: 5px 12px; cursor: pointer; font-family: var(--font-mono); transition: background 0.2s; }
+    .btn-logout:hover { background: rgba(255,92,92,0.1); }
+    .main { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+    .page-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+    .page-title { font-family: var(--font-display); font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; }
+    .page-title span { color: var(--muted); font-size: 1rem; font-family: var(--font-mono); font-weight: 400; margin-left: 10px; }
+    .btn-primary { background: var(--accent); color: #0e0e0e; border: none; border-radius: 8px; padding: 10px 20px; font-family: var(--font-display); font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.1s; white-space: nowrap; }
+    .btn-primary:hover { background: var(--accent-dark); }
+    .btn-primary:active { transform: scale(0.98); }
+    .staff-notice { display: none; background: rgba(107,107,107,0.1); border: 1px solid rgba(107,107,107,0.25); border-radius: 8px; padding: 10px 16px; font-size: 12px; color: var(--muted); margin-bottom: 1.5rem; }
+    .staff-notice.visible { display: block; }
+    .toolbar { display: flex; gap: 10px; margin-bottom: 1.5rem; }
+    .search-input { flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-family: var(--font-mono); font-size: 13px; color: var(--text); outline: none; transition: border-color 0.2s; }
+    .search-input:focus { border-color: var(--border-focus); }
+    .search-input::placeholder { color: var(--muted); }
+    .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead { background: var(--surface2); border-bottom: 1px solid var(--border); }
+    th { padding: 12px 16px; text-align: left; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+    td { padding: 13px 16px; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tbody tr { transition: background 0.15s; }
+    tbody tr:hover { background: var(--surface2); }
+    .badge { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; background: rgba(212,245,74,0.12); color: var(--accent); border: 1px solid rgba(212,245,74,0.25); }
+    .worker-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); background: var(--surface2); display: inline-block; }
+    .worker-avatar-placeholder { width: 36px; height: 36px; border-radius: 50%; background: var(--surface2); border: 1px solid var(--border); display: inline-flex; align-items: center; justify-content: center; font-size: 13px; color: var(--muted); font-weight: 500; }
+    .action-btns { display: flex; gap: 8px; }
+    .btn-edit, .btn-delete { border: none; border-radius: 6px; padding: 6px 12px; font-size: 12px; font-family: var(--font-mono); cursor: pointer; transition: background 0.15s, transform 0.1s; }
+    .btn-edit { background: rgba(212,245,74,0.1); color: var(--accent); border: 1px solid rgba(212,245,74,0.2); }
+    .btn-edit:hover { background: rgba(212,245,74,0.2); }
+    .btn-delete { background: rgba(255,92,92,0.1); color: var(--error); border: 1px solid rgba(255,92,92,0.2); }
+    .btn-delete:hover { background: rgba(255,92,92,0.2); }
+    .btn-edit:active, .btn-delete:active { transform: scale(0.96); }
+    .empty-state { text-align: center; padding: 3rem; color: var(--muted); font-size: 14px; }
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; align-items: center; justify-content: center; padding: 1rem; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; width: 100%; max-width: 440px; animation: fadeUp 0.25s ease both; max-height: 90vh; overflow-y: auto; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+    .modal-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; }
+    .btn-close { background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; padding: 2px 6px; border-radius: 4px; line-height: 1; transition: color 0.2s; }
+    .btn-close:hover { color: var(--text); }
+    .field { margin-bottom: 1.1rem; }
+    label { display: block; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; }
+    input, select { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 11px 13px; font-family: var(--font-mono); font-size: 13px; color: var(--text); outline: none; transition: border-color 0.2s; appearance: none; }
+    input:focus, select:focus { border-color: var(--border-focus); }
+    input::placeholder { color: var(--muted); }
+    input[type="file"] { padding: 9px 13px; cursor: pointer; }
+    input[type="file"]::file-selector-button { background: var(--surface2); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; font-family: var(--font-mono); font-size: 12px; cursor: pointer; margin-right: 10px; }
+    .image-preview { margin-top: 8px; display: none; }
+    .image-preview img { width: 60px; height: 60px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border); }
+    .image-preview.visible { display: block; }
+    .current-image { font-size: 11px; color: var(--muted); margin-top: 6px; }
+    select option { background: var(--surface); color: var(--text); }
+    .modal-footer { display: flex; gap: 10px; margin-top: 1.5rem; }
+    .btn-cancel { flex: 1; padding: 11px; background: none; border: 1px solid var(--border); border-radius: 8px; color: var(--muted); font-family: var(--font-mono); font-size: 13px; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
+    .btn-cancel:hover { border-color: var(--text); color: var(--text); }
+    .btn-save { flex: 2; padding: 11px; background: var(--accent); color: #0e0e0e; border: none; border-radius: 8px; font-family: var(--font-display); font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.1s; }
+    .btn-save:hover { background: var(--accent-dark); }
+    .btn-save:active { transform: scale(0.98); }
+    .btn-save:disabled { opacity: 0.5; cursor: not-allowed; }
+    .toast { position: fixed; bottom: 2rem; right: 2rem; z-index: 300; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 18px; font-size: 13px; transform: translateY(80px); opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease; max-width: 320px; }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { border-color: rgba(74,245,160,0.3); color: var(--success); }
+    .toast.error { border-color: rgba(255,92,92,0.3); color: var(--error); }
+    .modal-error { background: rgba(255,92,92,0.1); border: 1px solid rgba(255,92,92,0.3); border-radius: 8px; padding: 9px 13px; font-size: 12px; color: var(--error); margin-bottom: 1rem; display: none; }
+    .modal-error.visible { display: block; }
+    .loading-dots span { display: inline-block; animation: blink 1.2s infinite; }
+    .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes blink { 0%, 80%, 100% { opacity: 0; } 40% { opacity: 1; } }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">Inventory <span>system</span></div>
+    <div class="nav-links">
+      <a href="items.html">Items</a>
+      <a href="suppliers.html">Suppliers</a>
+      <a href="inwards.html">Inwards</a>
+      <a href="outwardslips.html">Outward Slips</a>
+      <a href="outwards.html">Outwards</a>
+      <a href="outwardbarcodes.html">Barcodes</a>
+      <a href="workers.html" class="active">Workers</a>
+    </div>
+    <div class="nav-right">
+      <span class="nav-user" id="navUser"></span>
+      <span class="role-badge" id="roleBadge"></span>
+      <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="page-title">Workers <span id="workerCount"></span></div>
+      <button class="btn-primary" id="addBtn" onclick="openCreateModal()" style="display:none">+ Add Worker</button>
+    </div>
+    <div class="staff-notice" id="staffNotice">
+      You are logged in as <strong>staff</strong>. You have view-only access to workers.
+    </div>
+    <div class="toolbar">
+      <input class="search-input" type="text" id="searchInput" placeholder="Search by name or type..." oninput="filterWorkers()"/>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Photo</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Contact</th>
+            <th id="actionsHeader">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="workersTableBody">
+          <tr><td colspan="5" class="empty-state">Loading workers...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title" id="modalTitle">Add Worker</div>
+        <button class="btn-close" onclick="closeModal()">×</button>
+      </div>
+      <div class="modal-error" id="modalError"></div>
+
+      <div class="field">
+        <label>Name</label>
+        <input type="text" id="fieldName" placeholder="e.g. Ramesh Kumar"/>
+      </div>
+      <div class="field">
+        <label>Type</label>
+        <input type="text" id="fieldType" placeholder="e.g. Electrician"/>
+      </div>
+      <div class="field">
+        <label>Contact</label>
+        <input type="text" id="fieldContact" placeholder="e.g. 9876543210"/>
+      </div>
+      <div class="field" id="imageField">
+        <label>Photo <span id="imageRequired" style="color:var(--error); font-size:10px">*required</span></label>
+        <input type="file" id="fieldImage" accept="image/*" onchange="previewImage()"/>
+        <div class="image-preview" id="imagePreview">
+          <img id="previewImg" src="" alt="preview"/>
+        </div>
+        <div class="current-image" id="currentImage"></div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+        <button class="btn-save" id="saveBtn" onclick="saveWorker()">Save Worker</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const BASE_URL = 'http://localhost:8000';
+    let allWorkers = [];
+    let editingId = null;
+    let currentRole = null;
+
+    function getToken() { return localStorage.getItem('access_token'); }
+    function getUserRole() {
+      try { return JSON.parse(atob(getToken().split('.')[1])).role; } catch { return null; }
+    }
+    function getUserName() {
+      try { return JSON.parse(atob(getToken().split('.')[1])).sub || ''; } catch { return ''; }
+    }
+    function authHeaders(contentType = true) {
+      const h = { 'Authorization': `Bearer ${getToken()}` };
+      if (contentType) h['Content-Type'] = 'application/json';
+      return h;
+    }
+    function logout() {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('token_type');
+      window.location.href = 'login.html';
+    }
+
+    function applyRoleUI() {
+      currentRole = getUserRole();
+      const isAdmin = currentRole === 'admin';
+      document.getElementById('navUser').textContent = getUserName();
+      const badge = document.getElementById('roleBadge');
+      badge.textContent = currentRole || '';
+      badge.className = `role-badge ${isAdmin ? 'role-admin' : 'role-staff'}`;
+      if (isAdmin) {
+        document.getElementById('addBtn').style.display = 'inline-block';
+      } else {
+        document.getElementById('staffNotice').classList.add('visible');
+        document.getElementById('actionsHeader').style.display = 'none';
+      }
+    }
+
+    let toastTimer;
+    function showToast(msg, type = 'success') {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.className = `toast ${type} show`;
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+    }
+    function showModalError(msg) {
+      const el = document.getElementById('modalError');
+      el.textContent = msg; el.classList.add('visible');
+    }
+    function hideModalError() {
+      document.getElementById('modalError').classList.remove('visible');
+    }
+
+    function previewImage() {
+      const file = document.getElementById('fieldImage').files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        document.getElementById('previewImg').src = e.target.result;
+        document.getElementById('imagePreview').classList.add('visible');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function loadWorkers() {
+      if (!getToken()) { window.location.href = 'login.html'; return; }
+      try {
+        const res = await fetch(`${BASE_URL}/workers`, { headers: authHeaders() });
+        if (res.status === 401) { logout(); return; }
+        const data = await res.json();
+        allWorkers = data.data || [];
+        renderTable(allWorkers);
+      } catch {
+        document.getElementById('workersTableBody').innerHTML =
+          `<tr><td colspan="5" class="empty-state">Could not load workers. Is the backend running?</td></tr>`;
+      }
+    }
+
+    function getInitials(name) {
+      return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+    }
+
+    function renderTable(workers) {
+      const tbody = document.getElementById('workersTableBody');
+      const isAdmin = currentRole === 'admin';
+      document.getElementById('workerCount').textContent = `(${workers.length})`;
+
+      if (!workers.length) {
+        tbody.innerHTML = `<tr><td colspan="5" class="empty-state">No workers found.</td></tr>`;
+        return;
+      }
+
+      let html = '';
+      workers.forEach(w => {
+        const imageUrl = w.image ? `${BASE_URL}/${w.image}` : null;
+        const avatar = imageUrl
+          ? `<img class="worker-avatar" src="${imageUrl}" alt="${w.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';"/><span class="worker-avatar-placeholder" style="display:none">${getInitials(w.name)}</span>`
+          : `<span class="worker-avatar-placeholder">${getInitials(w.name)}</span>`;
+
+        html += `<tr>
+          <td>${avatar}</td>
+          <td style="font-weight:500">${w.name}</td>
+          <td><span class="badge">${w.type}</span></td>
+          <td style="color:var(--muted)">${w.contact}</td>
+          <td>${isAdmin ? `
+            <div class="action-btns">
+              <button class="btn-edit" data-id="${w.id}">Edit</button>
+              <button class="btn-delete" data-id="${w.id}">Delete</button>
+            </div>` : `<span style="color:var(--muted);font-size:12px">—</span>`}
+          </td>
+        </tr>`;
+      });
+      tbody.innerHTML = html;
+
+      tbody.querySelectorAll('.btn-edit').forEach(btn => {
+        btn.addEventListener('click', function() {
+          openEditModal(parseInt(this.getAttribute('data-id')));
+        });
+      });
+      tbody.querySelectorAll('.btn-delete').forEach(btn => {
+        btn.addEventListener('click', function() {
+          deleteWorker(parseInt(this.getAttribute('data-id')));
+        });
+      });
+    }
+
+    function filterWorkers() {
+      const q = document.getElementById('searchInput').value.toLowerCase();
+      renderTable(allWorkers.filter(w =>
+        w.name.toLowerCase().includes(q) || w.type.toLowerCase().includes(q)
+      ));
+    }
+
+    function openCreateModal() {
+      if (currentRole !== 'admin') return;
+      editingId = null;
+      document.getElementById('modalTitle').textContent = 'Add Worker';
+      document.getElementById('fieldName').value = '';
+      document.getElementById('fieldType').value = '';
+      document.getElementById('fieldContact').value = '';
+      document.getElementById('fieldImage').value = '';
+      document.getElementById('imagePreview').classList.remove('visible');
+      document.getElementById('currentImage').textContent = '';
+      document.getElementById('imageRequired').style.display = 'inline';
+      document.getElementById('saveBtn').textContent = 'Save Worker';
+      hideModalError();
+      document.getElementById('modalOverlay').classList.add('open');
+    }
+
+    function openEditModal(id) {
+      if (currentRole !== 'admin') return;
+      const w = allWorkers.find(w => w.id === id);
+      if (!w) return;
+      editingId = id;
+      document.getElementById('modalTitle').textContent = 'Edit Worker';
+      document.getElementById('fieldName').value = w.name;
+      document.getElementById('fieldType').value = w.type;
+      document.getElementById('fieldContact').value = w.contact;
+      document.getElementById('fieldImage').value = '';
+      document.getElementById('imagePreview').classList.remove('visible');
+      document.getElementById('imageRequired').style.display = 'none';
+      document.getElementById('currentImage').textContent = w.image
+        ? `Current: ${w.image.split('/').pop()}`
+        : 'No image set';
+      document.getElementById('saveBtn').textContent = 'Update Worker';
+      hideModalError();
+      document.getElementById('modalOverlay').classList.add('open');
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('open');
+    }
+
+    async function saveWorker() {
+      if (currentRole !== 'admin') return;
+      hideModalError();
+
+      const name    = document.getElementById('fieldName').value.trim();
+      const type    = document.getElementById('fieldType').value.trim();
+      const contact = document.getElementById('fieldContact').value.trim();
+      const imageFile = document.getElementById('fieldImage').files[0];
+
+      if (!name || !type || !contact) {
+        showModalError('Name, type and contact are required.');
+        return;
+      }
+
+      // For create, image is required
+      if (!editingId && !imageFile) {
+        showModalError('Please select a photo for the worker.');
+        return;
+      }
+
+      const saveBtn = document.getElementById('saveBtn');
+      saveBtn.disabled = true;
+      saveBtn.innerHTML = '<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span>';
+
+      try {
+        let res;
+
+        if (!editingId) {
+          // CREATE — must use multipart/form-data because of image upload
+          const formData = new FormData();
+          formData.append('name', name);
+          formData.append('type', type);
+          formData.append('contact', contact);
+          formData.append('image', imageFile);
+
+          res = await fetch(`${BASE_URL}/worker/create`, {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${getToken()}` }, // NO Content-Type for FormData
+            body: formData
+          });
+        } else {
+          // UPDATE — JSON (no image update in backend PUT endpoint)
+          res = await fetch(`${BASE_URL}/worker/${editingId}`, {
+            method: 'PUT',
+            headers: authHeaders(),
+            body: JSON.stringify({ name, type, contact })
+          });
+        }
+
+        const data = await res.json();
+        if (!res.ok) { showModalError(data.detail || 'Something went wrong.'); return; }
+        closeModal();
+        showToast(editingId ? 'Worker updated!' : 'Worker created!', 'success');
+        await loadWorkers();
+      } catch (e) {
+        console.error(e);
+        showModalError('Could not connect to server.');
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = editingId ? 'Update Worker' : 'Save Worker';
+      }
+    }
+
+    async function deleteWorker(id) {
+      if (currentRole !== 'admin') return;
+      if (!confirm('Delete this worker? This cannot be undone.')) return;
+      try {
+        const res = await fetch(`${BASE_URL}/worker/${id}`, {
+          method: 'DELETE', headers: authHeaders()
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) { showToast(data.detail || 'Failed to delete worker.', 'error'); return; }
+        showToast('Worker deleted.', 'success');
+        await loadWorkers();
+      } catch { showToast('Could not connect to server.', 'error'); }
+    }
+
+    document.getElementById('modalOverlay').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    applyRoleUI();
+    loadWorkers();
+  </script>
+</body>
+</html>

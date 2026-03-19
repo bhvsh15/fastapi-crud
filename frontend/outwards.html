@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Outwards — Inventory System</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0e0e0e; --surface: #161616; --surface2: #1e1e1e;
+      --border: #2a2a2a; --border-focus: #e8e8e8;
+      --text: #f0f0f0; --muted: #6b6b6b;
+      --accent: #d4f54a; --accent-dark: #a8c92e;
+      --error: #ff5c5c; --success: #4af5a0; --warning: #f5c842;
+      --font-display: 'Syne', sans-serif; --font-mono: 'DM Mono', monospace;
+    }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-mono); min-height: 100vh; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px; pointer-events: none; z-index: 0;
+    }
+    .navbar { position: sticky; top: 0; z-index: 100; background: rgba(14,14,14,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; height: 56px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-brand { font-family: var(--font-display); font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+    .nav-brand span { color: var(--accent); font-size: 11px; font-family: var(--font-mono); font-weight: 400; letter-spacing: 0.1em; border: 1px solid var(--accent); border-radius: 4px; padding: 2px 7px; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .nav-user { font-size: 12px; color: var(--muted); }
+    .role-badge { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-family: var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; }
+    .role-admin { background: rgba(212,245,74,0.12); color: var(--accent); border: 1px solid rgba(212,245,74,0.3); }
+    .role-staff { background: rgba(107,107,107,0.15); color: var(--muted); border: 1px solid rgba(107,107,107,0.3); }
+    .btn-logout { font-size: 12px; color: var(--error); background: none; border: 1px solid rgba(255,92,92,0.3); border-radius: 6px; padding: 5px 12px; cursor: pointer; font-family: var(--font-mono); transition: background 0.2s; }
+    .btn-logout:hover { background: rgba(255,92,92,0.1); }
+    .main { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+    .page-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+    .page-title { font-family: var(--font-display); font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; }
+    .page-title span { color: var(--muted); font-size: 1rem; font-family: var(--font-mono); font-weight: 400; margin-left: 10px; }
+    .btn-primary { background: var(--accent); color: #0e0e0e; border: none; border-radius: 8px; padding: 10px 20px; font-family: var(--font-display); font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.1s; white-space: nowrap; }
+    .btn-primary:hover { background: var(--accent-dark); }
+    .btn-primary:active { transform: scale(0.98); }
+    .toolbar { display: flex; gap: 10px; margin-bottom: 1.5rem; }
+    .search-input { flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-family: var(--font-mono); font-size: 13px; color: var(--text); outline: none; transition: border-color 0.2s; }
+    .search-input:focus { border-color: var(--border-focus); }
+    .search-input::placeholder { color: var(--muted); }
+    .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead { background: var(--surface2); border-bottom: 1px solid var(--border); }
+    th { padding: 12px 16px; text-align: left; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+    td { padding: 13px 16px; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tbody tr { transition: background 0.15s; }
+    tbody tr:hover { background: var(--surface2); }
+    .badge { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; background: rgba(212,245,74,0.12); color: var(--accent); border: 1px solid rgba(212,245,74,0.25); }
+    .badge-complete { background: rgba(74,245,160,0.1); color: var(--success); border-color: rgba(74,245,160,0.25); }
+    .badge-pending { background: rgba(245,200,66,0.1); color: var(--warning); border-color: rgba(245,200,66,0.25); }
+    .action-btns { display: flex; gap: 8px; }
+    .btn-edit, .btn-delete { border: none; border-radius: 6px; padding: 6px 12px; font-size: 12px; font-family: var(--font-mono); cursor: pointer; transition: background 0.15s, transform 0.1s; }
+    .btn-edit { background: rgba(212,245,74,0.1); color: var(--accent); border: 1px solid rgba(212,245,74,0.2); }
+    .btn-edit:hover { background: rgba(212,245,74,0.2); }
+    .btn-delete { background: rgba(255,92,92,0.1); color: var(--error); border: 1px solid rgba(255,92,92,0.2); }
+    .btn-delete:hover { background: rgba(255,92,92,0.2); }
+    .btn-edit:active, .btn-delete:active { transform: scale(0.96); }
+    .empty-state { text-align: center; padding: 3rem; color: var(--muted); font-size: 14px; }
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; align-items: center; justify-content: center; padding: 1rem; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; width: 100%; max-width: 440px; animation: fadeUp 0.25s ease both; max-height: 90vh; overflow-y: auto; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+    .modal-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; }
+    .btn-close { background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; padding: 2px 6px; border-radius: 4px; line-height: 1; transition: color 0.2s; }
+    .btn-close:hover { color: var(--text); }
+    .field { margin-bottom: 1.1rem; }
+    label { display: block; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; }
+    input, select { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 11px 13px; font-family: var(--font-mono); font-size: 13px; color: var(--text); outline: none; transition: border-color 0.2s; appearance: none; }
+    input:focus, select:focus { border-color: var(--border-focus); }
+    input::placeholder { color: var(--muted); }
+    select option { background: var(--surface); color: var(--text); }
+    .select-wrap { position: relative; }
+    .select-wrap::after { content: '▾'; position: absolute; right: 13px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; font-size: 12px; }
+    .modal-footer { display: flex; gap: 10px; margin-top: 1.5rem; }
+    .btn-cancel { flex: 1; padding: 11px; background: none; border: 1px solid var(--border); border-radius: 8px; color: var(--muted); font-family: var(--font-mono); font-size: 13px; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
+    .btn-cancel:hover { border-color: var(--text); color: var(--text); }
+    .btn-save { flex: 2; padding: 11px; background: var(--accent); color: #0e0e0e; border: none; border-radius: 8px; font-family: var(--font-display); font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.1s; }
+    .btn-save:hover { background: var(--accent-dark); }
+    .btn-save:active { transform: scale(0.98); }
+    .btn-save:disabled { opacity: 0.5; cursor: not-allowed; }
+    .toast { position: fixed; bottom: 2rem; right: 2rem; z-index: 300; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 18px; font-size: 13px; transform: translateY(80px); opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease; max-width: 320px; }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { border-color: rgba(74,245,160,0.3); color: var(--success); }
+    .toast.error { border-color: rgba(255,92,92,0.3); color: var(--error); }
+    .modal-error { background: rgba(255,92,92,0.1); border: 1px solid rgba(255,92,92,0.3); border-radius: 8px; padding: 9px 13px; font-size: 12px; color: var(--error); margin-bottom: 1rem; display: none; }
+    .modal-error.visible { display: block; }
+    .info-box { background: rgba(212,245,74,0.06); border: 1px solid rgba(212,245,74,0.15); border-radius: 8px; padding: 10px 14px; font-size: 12px; color: var(--muted); margin-bottom: 1rem; line-height: 1.6; }
+    .loading-dots span { display: inline-block; animation: blink 1.2s infinite; }
+    .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes blink { 0%, 80%, 100% { opacity: 0; } 40% { opacity: 1; } }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">Inventory <span>system</span></div>
+    <div class="nav-links">
+      <a href="items.html">Items</a>
+      <a href="suppliers.html">Suppliers</a>
+      <a href="inwards.html">Inwards</a>
+      <a href="outwardslips.html">Outward Slips</a>
+      <a href="outwards.html" class="active">Outwards</a>
+      <a href="outwardbarcodes.html">Barcodes</a>
+      <a href="workers.html">Workers</a>
+    </div>
+    <div class="nav-right">
+      <span class="nav-user" id="navUser"></span>
+      <span class="role-badge" id="roleBadge"></span>
+      <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="page-title">Outwards <span id="outwardCount"></span></div>
+      <button class="btn-primary" onclick="openCreateModal()">+ Add Outward</button>
+    </div>
+    <div class="toolbar">
+      <input class="search-input" type="text" id="searchInput" placeholder="Search by barcode or status..." oninput="filterOutwards()"/>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Slip ID</th>
+            <th>Barcode</th>
+            <th>Quantity</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="outwardsTableBody">
+          <tr><td colspan="7" class="empty-state">Loading outwards...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title" id="modalTitle">Add Outward</div>
+        <button class="btn-close" onclick="closeModal()">×</button>
+      </div>
+      <div class="modal-error" id="modalError"></div>
+      <div class="info-box">
+        Creating an outward will mark the linked slip as <strong style="color:var(--success)">Completed</strong> and reduce item stock automatically.
+      </div>
+
+      <div class="field">
+        <label>Outward Slip</label>
+        <div class="select-wrap">
+          <select id="fieldSlip">
+            <option value="">— Select Slip —</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Barcode</label>
+        <input type="text" id="fieldBarcode" placeholder="e.g. BAR123456"/>
+      </div>
+      <div class="field">
+        <label>Quantity</label>
+        <input type="number" id="fieldQuantity" placeholder="e.g. 10" min="1"/>
+      </div>
+      <div class="field">
+        <label>Status</label>
+        <div class="select-wrap">
+          <select id="fieldStatus">
+            <option value="Complete">Complete</option>
+            <option value="Pending">Pending</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Date</label>
+        <input type="datetime-local" id="fieldDate"/>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+        <button class="btn-save" id="saveBtn" onclick="saveOutward()">Save Outward</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const BASE_URL = 'http://localhost:8000';
+    let allOutwards = [];
+    let allSlips = [];
+    let editingId = null;
+    let currentRole = null;
+
+    function getToken() { return localStorage.getItem('access_token'); }
+    function getUserRole() {
+      try { return JSON.parse(atob(getToken().split('.')[1])).role; } catch { return null; }
+    }
+    function getUserName() {
+      try { return JSON.parse(atob(getToken().split('.')[1])).sub || ''; } catch { return ''; }
+    }
+    function authHeaders() {
+      return { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getToken()}` };
+    }
+    function logout() {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('token_type');
+      window.location.href = 'login.html';
+    }
+
+    function applyRoleUI() {
+      currentRole = getUserRole();
+      const isAdmin = currentRole === 'admin';
+      document.getElementById('navUser').textContent = getUserName();
+      const badge = document.getElementById('roleBadge');
+      badge.textContent = currentRole || '';
+      badge.className = `role-badge ${isAdmin ? 'role-admin' : 'role-staff'}`;
+    }
+
+    let toastTimer;
+    function showToast(msg, type = 'success') {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.className = `toast ${type} show`;
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+    }
+    function showModalError(msg) {
+      const el = document.getElementById('modalError');
+      el.textContent = msg; el.classList.add('visible');
+    }
+    function hideModalError() {
+      document.getElementById('modalError').classList.remove('visible');
+    }
+
+    async function loadDropdowns() {
+      const slipSel = document.getElementById('fieldSlip');
+      slipSel.innerHTML = '<option value="">— Select Slip —</option>';
+      try {
+        const res = await fetch(`${BASE_URL}/outwardslips/`, { headers: authHeaders() });
+        if (res.ok) {
+          const data = await res.json();
+          allSlips = data.data || [];
+          allSlips.forEach(s => {
+            const opt = document.createElement('option');
+            opt.value = s.id;
+            opt.textContent = `Slip #${s.id} — Worker #${s.worker_id} (qty: ${s.quantity})`;
+            slipSel.appendChild(opt);
+          });
+        }
+      } catch (e) { console.error('Dropdown error:', e); }
+    }
+
+    async function loadOutwards() {
+      if (!getToken()) { window.location.href = 'login.html'; return; }
+      try {
+        const res = await fetch(`${BASE_URL}/outwards/`, { headers: authHeaders() });
+        if (res.status === 401) { logout(); return; }
+        if (res.status === 404) { allOutwards = []; renderTable([]); return; }
+        const data = await res.json();
+        allOutwards = data.data || [];
+        renderTable(allOutwards);
+      } catch {
+        document.getElementById('outwardsTableBody').innerHTML =
+          `<tr><td colspan="7" class="empty-state">Could not load outwards.</td></tr>`;
+      }
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return '—';
+      return new Date(dateStr).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+    }
+
+    function statusBadge(status) {
+      if (status === 'Complete' || status === 'Completed') {
+        return `<span class="badge badge-complete">${status}</span>`;
+      }
+      return `<span class="badge badge-pending">${status}</span>`;
+    }
+
+    function renderTable(outwards) {
+      const tbody = document.getElementById('outwardsTableBody');
+      document.getElementById('outwardCount').textContent = `(${outwards.length})`;
+      if (!outwards.length) {
+        tbody.innerHTML = `<tr><td colspan="7" class="empty-state">No outwards found.</td></tr>`;
+        return;
+      }
+
+      let html = '';
+      outwards.forEach(o => {
+        html += `<tr>
+          <td style="color:var(--muted)">${o.id}</td>
+          <td><span class="badge">Slip #${o.slip_id}</span></td>
+          <td style="font-family:var(--font-mono)">${o.barcode}</td>
+          <td style="font-weight:500">${o.quantity}</td>
+          <td>${statusBadge(o.status)}</td>
+          <td style="color:var(--muted)">${formatDate(o.date)}</td>
+          <td>
+            <div class="action-btns">
+              <button class="btn-edit" data-id="${o.id}">Edit</button>
+            </div>
+          </td>
+        </tr>`;
+      });
+      tbody.innerHTML = html;
+
+      tbody.querySelectorAll('.btn-edit').forEach(btn => {
+        btn.addEventListener('click', function() {
+          openEditModal(parseInt(this.getAttribute('data-id')));
+        });
+      });
+    }
+
+    function filterOutwards() {
+      const q = document.getElementById('searchInput').value.toLowerCase();
+      renderTable(allOutwards.filter(o =>
+        (o.barcode || '').toLowerCase().includes(q) ||
+        (o.status || '').toLowerCase().includes(q)
+      ));
+    }
+
+    function openCreateModal() {
+      editingId = null;
+      document.getElementById('modalTitle').textContent = 'Add Outward';
+      document.getElementById('fieldSlip').value = '';
+      document.getElementById('fieldBarcode').value = '';
+      document.getElementById('fieldQuantity').value = '';
+      document.getElementById('fieldStatus').value = 'Complete';
+      document.getElementById('fieldDate').value = new Date().toISOString().slice(0, 16);
+      document.getElementById('saveBtn').textContent = 'Save Outward';
+      hideModalError();
+      document.getElementById('modalOverlay').classList.add('open');
+    }
+
+    function openEditModal(id) {
+      const o = allOutwards.find(o => o.id === id);
+      if (!o) return;
+      editingId = id;
+      document.getElementById('modalTitle').textContent = 'Edit Outward';
+      document.getElementById('fieldSlip').value = o.slip_id;
+      document.getElementById('fieldBarcode').value = o.barcode;
+      document.getElementById('fieldQuantity').value = o.quantity;
+      document.getElementById('fieldStatus').value = o.status || 'Complete';
+      document.getElementById('fieldDate').value = o.date ? o.date.slice(0, 16) : '';
+      document.getElementById('saveBtn').textContent = 'Update Outward';
+      hideModalError();
+      document.getElementById('modalOverlay').classList.add('open');
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('open');
+    }
+
+    async function saveOutward() {
+      hideModalError();
+      const slip_id  = parseInt(document.getElementById('fieldSlip').value);
+      const barcode  = document.getElementById('fieldBarcode').value.trim();
+      const quantity = parseInt(document.getElementById('fieldQuantity').value);
+      const status   = document.getElementById('fieldStatus').value;
+      const date     = document.getElementById('fieldDate').value;
+
+      if (isNaN(slip_id) || !barcode || isNaN(quantity) || quantity < 1) {
+        showModalError('All fields are required and quantity must be at least 1.');
+        return;
+      }
+
+      const payload = {
+        slip_id,
+        barcode,
+        quantity,
+        status,
+        date: date ? new Date(date).toISOString() : null
+      };
+
+      const saveBtn = document.getElementById('saveBtn');
+      saveBtn.disabled = true;
+      saveBtn.innerHTML = '<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span>';
+
+      try {
+        // Only create is supported by backend, no update endpoint
+        const res  = await fetch(`${BASE_URL}/outward/create`, {
+          method: 'POST', headers: authHeaders(), body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (!res.ok) { showModalError(data.detail || 'Something went wrong.'); return; }
+        closeModal();
+        showToast('Outward created! Slip marked as Completed.', 'success');
+        await loadDropdowns();
+        await loadOutwards();
+      } catch (e) {
+        console.error(e);
+        showModalError('Could not connect to server.');
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = 'Save Outward';
+      }
+    }
+
+    document.getElementById('modalOverlay').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    applyRoleUI();
+    loadDropdowns().then(() => loadOutwards());
+  </script>
+</body>
+</html>

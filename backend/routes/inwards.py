@@ -64,10 +64,11 @@ async def update_inward(inward_id: int, user_in: schema.InwardCreate, db: db_dep
     inward = db.query(models.Inward).filter(models.Inward.id == inward_id).first()
     if not inward:
         raise HTTPException(status_code=404, detail="Inward not found")
-    ob = db.query(models.OutwardBarcode).filter(models.OutwardBarcode.barcode == inward.barcode)
-    if ob:
-        return "Inward cannot be updated because outward barcode exists"
     
+    ob = db.query(models.OutwardBarcode).filter(models.OutwardBarcode.barcode == inward.barcode).first()  # ← add .first()
+    if ob:
+        raise HTTPException(status_code=400, detail="Inward cannot be updated because outward barcode exists")  # ← raise instead of return
+
     for key, value in user_in.dict().items():
         setattr(inward, key, value)
 
@@ -85,9 +86,11 @@ async def delete_inward(inward_id: int, db: db_dependency):
     inward = db.query(models.Inward).filter(models.Inward.id == inward_id).first()
     if not inward:
         raise HTTPException(status_code=404, detail="Inward not found")
-    ob = db.query(models.OutwardBarcode).filter(models.OutwardBarcode.barcode == inward.barcode)
+    
+    ob = db.query(models.OutwardBarcode).filter(models.OutwardBarcode.barcode == inward.barcode).first()
     if ob:
-        return "Inward cannot be deleted because outward barcode exists"
+        raise HTTPException(status_code=400, detail="Inward cannot be deleted because outward barcode exists")
+    
     db.delete(inward)
     db.commit()
     return None
