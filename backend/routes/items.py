@@ -1,6 +1,6 @@
-from fastapi import FastAPI, HTTPException, Depends, status, APIRouter
+from fastapi import  HTTPException, Depends, status, APIRouter
 import db.schema as schema
-from typing import Annotated, List
+from typing import Annotated 
 import db.models as models
 from db.database import engine, SessionLocal
 from sqlalchemy.orm import Session

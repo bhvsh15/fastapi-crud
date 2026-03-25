@@ -1,0 +1,3553 @@
+[
+  {
+    "__type": "projectMetaData",
+    "repositoryPath": "/Users/bhaveshmandwani/Code/Python/INTERNSHIP/Crud_FastAPI",
+    "repositoryName": "Crud_FastAPI",
+    "analyzedLanguages": [
+      "javascript",
+      "python"
+    ],
+    "totalFiles": 25,
+    "totalFunctions": 77,
+    "totalClasses": 38,
+    "totalLinesOfCode": 1565,
+    "configs": {
+      "totalConfigFiles": 2,
+      "byType": {
+        "json": 1,
+        "yaml": 0,
+        "docker": 0,
+        "env": 0,
+        "xml": 0,
+        "ini": 0,
+        "toml": 0,
+        "python": 15,
+        "gradle": 0,
+        "other": 1,
+        "javascript": 8
+      },
+      "packageManagers": [],
+      "dockerInfo": {
+        "hasDockerfile": false,
+        "hasDockerCompose": false,
+        "services": [],
+        "exposedPorts": []
+      },
+      "buildTools": [],
+      "dependencies": {
+        "total": 0,
+        "production": 0,
+        "development": 0
+      }
+    },
+    "generatedAt": "2026-03-20T09:45:34.987Z",
+    "toolVersion": "1.0.0"
+  },
+  {
+    "path": "inventory-frontend/vite.config.js",
+    "importFiles": [],
+    "externalImports": [
+      "vite",
+      "@vitejs/plugin-react"
+    ],
+    "functions": [],
+    "classes": [],
+    "statements": [],
+    "type": "code",
+    "language": "javascript",
+    "loc": 8
+  },
+  {
+    "path": "inventory-frontend/eslint.config.js",
+    "importFiles": [],
+    "externalImports": [
+      "@eslint/js",
+      "globals",
+      "eslint-plugin-react-hooks",
+      "eslint-plugin-react-refresh",
+      "eslint/config"
+    ],
+    "functions": [],
+    "classes": [],
+    "statements": [],
+    "type": "code",
+    "language": "javascript",
+    "loc": 30
+  },
+  {
+    "path": "inventory-frontend/src/main.jsx",
+    "importFiles": [
+      "inventory-frontend/src/index.css",
+      "inventory-frontend/src/App.jsx"
+    ],
+    "externalImports": [
+      "react",
+      "react-dom/client"
+    ],
+    "functions": [],
+    "classes": [],
+    "statements": [],
+    "type": "code",
+    "language": "javascript",
+    "loc": 10
+  },
+  {
+    "path": "inventory-frontend/src/App.jsx",
+    "importFiles": [
+      "inventory-frontend/src/api/api.jsx",
+      "inventory-frontend/src/pages/Login.jsx",
+      "inventory-frontend/src/pages/Register.jsx"
+    ],
+    "externalImports": [
+      "react-router-dom"
+    ],
+    "functions": [
+      {
+        "name": "ProtectedRoute",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [
+          "{...}"
+        ],
+        "startLine": 6,
+        "endLine": 9,
+        "calls": [
+          {
+            "name": "getToken",
+            "path": "./api/api"
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "PublicRoute",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [
+          "{...}"
+        ],
+        "startLine": 11,
+        "endLine": 14,
+        "calls": [
+          {
+            "name": "getToken",
+            "path": "./api/api"
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "App",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 16,
+        "endLine": 27,
+        "calls": [],
+        "statements": []
+      }
+    ],
+    "classes": [],
+    "statements": [],
+    "type": "code",
+    "language": "javascript",
+    "loc": 27
+  },
+  {
+    "path": "inventory-frontend/src/pages/Register.jsx",
+    "importFiles": [
+      "inventory-frontend/src/api/Api.jsx"
+    ],
+    "externalImports": [
+      "react",
+      "react-router-dom"
+    ],
+    "functions": [
+      {
+        "name": "Register",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 5,
+        "endLine": 112,
+        "calls": [
+          {
+            "name": "useNavigate",
+            "path": "react-router-dom"
+          },
+          {
+            "name": "useState",
+            "path": "react"
+          },
+          {
+            "name": "useState",
+            "path": "react"
+          },
+          {
+            "name": "useState",
+            "path": "react"
+          },
+          {
+            "name": "useState",
+            "path": "react"
+          },
+          {
+            "name": "useState",
+            "path": "react"
+          },
+          {
+            "name": "useState",
+            "path": "react"
+          },
+          {
+            "name": "useState",
+            "path": "react"
+          },
+          {
+            "name": "preventDefault",
+            "path": null
+          },
+          {
+            "name": "setError",
+            "path": null
+          },
+          {
+            "name": "setSuccess",
+            "path": null
+          },
+          {
+            "name": "setError",
+            "path": null
+          },
+          {
+            "name": "setError",
+            "path": null
+          },
+          {
+            "name": "setLoading",
+            "path": null
+          },
+          {
+            "name": "registerUser",
+            "path": "../api/Api"
+          },
+          {
+            "name": "setSuccess",
+            "path": null
+          },
+          {
+            "name": "setTimeout",
+            "path": null
+          },
+          {
+            "name": "navigate",
+            "path": null
+          },
+          {
+            "name": "setError",
+            "path": null
+          },
+          {
+            "name": "setLoading",
+            "path": null
+          },
+          {
+            "name": "setUsername",
+            "path": null
+          },
+          {
+            "name": "setEmail",
+            "path": null
+          },
+          {
+            "name": "setPassword",
+            "path": null
+          },
+          {
+            "name": "setRole",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "handleRegister",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [
+          "e"
+        ],
+        "startLine": 15,
+        "endLine": 40,
+        "calls": [
+          {
+            "name": "preventDefault",
+            "path": null
+          },
+          {
+            "name": "setError",
+            "path": null
+          },
+          {
+            "name": "setSuccess",
+            "path": null
+          },
+          {
+            "name": "setError",
+            "path": null
+          },
+          {
+            "name": "setError",
+            "path": null
+          },
+          {
+            "name": "setLoading",
+            "path": null
+          },
+          {
+            "name": "registerUser",
+            "path": "../api/Api"
+          },
+          {
+            "name": "setSuccess",
+            "path": null
+          },
+          {
+            "name": "setTimeout",
+            "path": null
+          },
+          {
+            "name": "navigate",
+            "path": null
+          },
+          {
+            "name": "setError",
+            "path": null
+          },
+          {
+            "name": "setLoading",
+            "path": null
+          }
+        ],
+        "statements": []
+      }
+    ],
+    "classes": [],
+    "statements": [],
+    "type": "code",
+    "language": "javascript",
+    "loc": 113
+  },
+  {
+    "path": "inventory-frontend/src/pages/Login.jsx",
+    "importFiles": [
+      "inventory-frontend/src/api/api.jsx"
+    ],
+    "externalImports": [
+      "react",
+      "react-router-dom"
+    ],
+    "functions": [
+      {
+        "name": "Login",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 5,
+        "endLine": 82,
+        "calls": [
+          {
+            "name": "useNavigate",
+            "path": "react-router-dom"
+          },
+          {
+            "name": "useState",
+            "path": "react"
+          },
+          {
+            "name": "useState",
+            "path": "react"
+          },
+          {
+            "name": "useState",
+            "path": "react"
+          },
+          {
+            "name": "useState",
+            "path": "react"
+          },
+          {
+            "name": "preventDefault",
+            "path": null
+          },
+          {
+            "name": "setError",
+            "path": null
+          },
+          {
+            "name": "setError",
+            "path": null
+          },
+          {
+            "name": "setLoading",
+            "path": null
+          },
+          {
+            "name": "loginUser",
+            "path": "../api/api"
+          },
+          {
+            "name": "saveToken",
+            "path": "../api/api"
+          },
+          {
+            "name": "setItem",
+            "path": null
+          },
+          {
+            "name": "navigate",
+            "path": null
+          },
+          {
+            "name": "setError",
+            "path": null
+          },
+          {
+            "name": "setLoading",
+            "path": null
+          },
+          {
+            "name": "setUsername",
+            "path": null
+          },
+          {
+            "name": "setPassword",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "handleLogin",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [
+          "e"
+        ],
+        "startLine": 12,
+        "endLine": 32,
+        "calls": [
+          {
+            "name": "preventDefault",
+            "path": null
+          },
+          {
+            "name": "setError",
+            "path": null
+          },
+          {
+            "name": "setError",
+            "path": null
+          },
+          {
+            "name": "setLoading",
+            "path": null
+          },
+          {
+            "name": "loginUser",
+            "path": "../api/api"
+          },
+          {
+            "name": "saveToken",
+            "path": "../api/api"
+          },
+          {
+            "name": "setItem",
+            "path": null
+          },
+          {
+            "name": "navigate",
+            "path": null
+          },
+          {
+            "name": "setError",
+            "path": null
+          },
+          {
+            "name": "setLoading",
+            "path": null
+          }
+        ],
+        "statements": []
+      }
+    ],
+    "classes": [],
+    "statements": [],
+    "type": "code",
+    "language": "javascript",
+    "loc": 83
+  },
+  {
+    "path": "inventory-frontend/src/components/Navbar.jsx",
+    "importFiles": [
+      "inventory-frontend/src/api/Api.jsx"
+    ],
+    "externalImports": [
+      "react-router-dom"
+    ],
+    "functions": [
+      {
+        "name": "Navbar",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 4,
+        "endLine": 53,
+        "calls": [
+          {
+            "name": "useNavigate",
+            "path": "react-router-dom"
+          },
+          {
+            "name": "getUserFromToken",
+            "path": "../api/Api"
+          },
+          {
+            "name": "clearToken",
+            "path": "../api/Api"
+          },
+          {
+            "name": "navigate",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "logout",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 8,
+        "endLine": 11,
+        "calls": [
+          {
+            "name": "clearToken",
+            "path": "../api/Api"
+          },
+          {
+            "name": "navigate",
+            "path": null
+          }
+        ],
+        "statements": []
+      }
+    ],
+    "classes": [],
+    "statements": [],
+    "type": "code",
+    "language": "javascript",
+    "loc": 54
+  },
+  {
+    "path": "inventory-frontend/src/api/Api.jsx",
+    "importFiles": [],
+    "externalImports": [],
+    "functions": [
+      {
+        "name": "getToken",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 4,
+        "endLine": 6,
+        "calls": [
+          {
+            "name": "getItem",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "saveToken",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [
+          "token"
+        ],
+        "startLine": 8,
+        "endLine": 10,
+        "calls": [
+          {
+            "name": "setItem",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "clearToken",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 12,
+        "endLine": 15,
+        "calls": [
+          {
+            "name": "removeItem",
+            "path": null
+          },
+          {
+            "name": "removeItem",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "getUserFromToken",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 17,
+        "endLine": 26,
+        "calls": [
+          {
+            "name": "getToken",
+            "path": null
+          },
+          {
+            "name": "parse",
+            "path": null
+          },
+          {
+            "name": "atob",
+            "path": null
+          },
+          {
+            "name": "split",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "isLoggedIn",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 28,
+        "endLine": 30,
+        "calls": [
+          {
+            "name": "getToken",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "authHeaders",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 33,
+        "endLine": 38,
+        "calls": [
+          {
+            "name": "getToken",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "formHeaders",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 40,
+        "endLine": 44,
+        "calls": [],
+        "statements": []
+      },
+      {
+        "name": "loginUser",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [
+          "username",
+          "password"
+        ],
+        "startLine": 47,
+        "endLine": 60,
+        "calls": [
+          {
+            "name": "append",
+            "path": null
+          },
+          {
+            "name": "append",
+            "path": null
+          },
+          {
+            "name": "fetch",
+            "path": null
+          },
+          {
+            "name": "formHeaders",
+            "path": null
+          },
+          {
+            "name": "toString",
+            "path": null
+          },
+          {
+            "name": "json",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "registerUser",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [
+          "username",
+          "email",
+          "password",
+          "role"
+        ],
+        "startLine": 62,
+        "endLine": 71,
+        "calls": [
+          {
+            "name": "fetch",
+            "path": null
+          },
+          {
+            "name": "stringify",
+            "path": null
+          },
+          {
+            "name": "json",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "fetchItems",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 74,
+        "endLine": 80,
+        "calls": [
+          {
+            "name": "fetch",
+            "path": null
+          },
+          {
+            "name": "authHeaders",
+            "path": null
+          },
+          {
+            "name": "json",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "createItem",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [
+          "payload"
+        ],
+        "startLine": 82,
+        "endLine": 91,
+        "calls": [
+          {
+            "name": "fetch",
+            "path": null
+          },
+          {
+            "name": "authHeaders",
+            "path": null
+          },
+          {
+            "name": "stringify",
+            "path": null
+          },
+          {
+            "name": "json",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "updateItem",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [
+          "id",
+          "payload"
+        ],
+        "startLine": 93,
+        "endLine": 102,
+        "calls": [
+          {
+            "name": "fetch",
+            "path": null
+          },
+          {
+            "name": "authHeaders",
+            "path": null
+          },
+          {
+            "name": "stringify",
+            "path": null
+          },
+          {
+            "name": "json",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "deleteItem",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [
+          "id"
+        ],
+        "startLine": 104,
+        "endLine": 113,
+        "calls": [
+          {
+            "name": "fetch",
+            "path": null
+          },
+          {
+            "name": "authHeaders",
+            "path": null
+          },
+          {
+            "name": "catch",
+            "path": null
+          },
+          {
+            "name": "json",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "fetchSuppliers",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 116,
+        "endLine": 123,
+        "calls": [
+          {
+            "name": "fetch",
+            "path": null
+          },
+          {
+            "name": "authHeaders",
+            "path": null
+          },
+          {
+            "name": "json",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "createSupplier",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [
+          "payload"
+        ],
+        "startLine": 125,
+        "endLine": 134,
+        "calls": [
+          {
+            "name": "fetch",
+            "path": null
+          },
+          {
+            "name": "authHeaders",
+            "path": null
+          },
+          {
+            "name": "stringify",
+            "path": null
+          },
+          {
+            "name": "json",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "updateSupplier",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [
+          "id",
+          "payload"
+        ],
+        "startLine": 136,
+        "endLine": 145,
+        "calls": [
+          {
+            "name": "fetch",
+            "path": null
+          },
+          {
+            "name": "authHeaders",
+            "path": null
+          },
+          {
+            "name": "stringify",
+            "path": null
+          },
+          {
+            "name": "json",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "deleteSupplier",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [
+          "id"
+        ],
+        "startLine": 147,
+        "endLine": 155,
+        "calls": [
+          {
+            "name": "fetch",
+            "path": null
+          },
+          {
+            "name": "authHeaders",
+            "path": null
+          },
+          {
+            "name": "catch",
+            "path": null
+          },
+          {
+            "name": "json",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "fetchInwards",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 158,
+        "endLine": 165,
+        "calls": [
+          {
+            "name": "fetch",
+            "path": null
+          },
+          {
+            "name": "authHeaders",
+            "path": null
+          },
+          {
+            "name": "json",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "createInward",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [
+          "payload"
+        ],
+        "startLine": 167,
+        "endLine": 176,
+        "calls": [
+          {
+            "name": "fetch",
+            "path": null
+          },
+          {
+            "name": "authHeaders",
+            "path": null
+          },
+          {
+            "name": "stringify",
+            "path": null
+          },
+          {
+            "name": "json",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "updateInward",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [
+          "id",
+          "payload"
+        ],
+        "startLine": 178,
+        "endLine": 187,
+        "calls": [
+          {
+            "name": "fetch",
+            "path": null
+          },
+          {
+            "name": "authHeaders",
+            "path": null
+          },
+          {
+            "name": "stringify",
+            "path": null
+          },
+          {
+            "name": "json",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "deleteInward",
+        "type": "function_declaration",
+        "visibility": "public",
+        "kind": "function",
+        "params": [
+          "id"
+        ],
+        "startLine": 189,
+        "endLine": 200,
+        "calls": [
+          {
+            "name": "fetch",
+            "path": null
+          },
+          {
+            "name": "authHeaders",
+            "path": null
+          },
+          {
+            "name": "text",
+            "path": null
+          },
+          {
+            "name": "includes",
+            "path": null
+          }
+        ],
+        "statements": []
+      }
+    ],
+    "classes": [],
+    "statements": [],
+    "type": "code",
+    "language": "javascript",
+    "loc": 200
+  },
+  {
+    "path": "backend/main.py",
+    "importFiles": [],
+    "externalImports": [
+      "fastapi",
+      "routes.worker",
+      "routes.supplier",
+      "routes.items",
+      "routes.inwards",
+      "routes.outward",
+      "routes.outwardslip",
+      "routes.outwardbar",
+      "auth.auth_routes",
+      "fastapi.middleware.cors"
+    ],
+    "functions": [],
+    "classes": [],
+    "statements": [],
+    "type": "code",
+    "language": "python",
+    "loc": 32
+  },
+  {
+    "path": "backend/routes/worker.py",
+    "importFiles": [],
+    "externalImports": [
+      "fastapi",
+      "typing",
+      "db.schema",
+      "db.models",
+      "db.database",
+      "sqlalchemy.orm",
+      "os"
+    ],
+    "functions": [
+      {
+        "name": "get_db",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 15,
+        "endLine": 20,
+        "calls": [
+          {
+            "name": "SessionLocal",
+            "path": null
+          },
+          {
+            "name": "close",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "create_worker",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [
+          "name",
+          "type",
+          "contact",
+          "image",
+          "db"
+        ],
+        "startLine": 26,
+        "endLine": 55,
+        "calls": [
+          {
+            "name": "Form",
+            "path": null
+          },
+          {
+            "name": "Form",
+            "path": null
+          },
+          {
+            "name": "Form",
+            "path": null
+          },
+          {
+            "name": "File",
+            "path": null
+          },
+          {
+            "name": "exists",
+            "path": null
+          },
+          {
+            "name": "makedirs",
+            "path": null
+          },
+          {
+            "name": "join",
+            "path": null
+          },
+          {
+            "name": "open",
+            "path": null
+          },
+          {
+            "name": "write",
+            "path": null
+          },
+          {
+            "name": "read",
+            "path": null
+          },
+          {
+            "name": "Worker",
+            "path": "db.models"
+          },
+          {
+            "name": "add",
+            "path": null
+          },
+          {
+            "name": "commit",
+            "path": null
+          },
+          {
+            "name": "refresh",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "read_worker",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 59,
+        "endLine": 66,
+        "calls": [
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "read_workers",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 70,
+        "endLine": 75,
+        "calls": [
+          {
+            "name": "all",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "delete_worker",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 79,
+        "endLine": 87,
+        "calls": [
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          },
+          {
+            "name": "delete",
+            "path": null
+          },
+          {
+            "name": "commit",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "update_worker",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 91,
+        "endLine": 105,
+        "calls": [
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          },
+          {
+            "name": "items",
+            "path": null
+          },
+          {
+            "name": "dict",
+            "path": null
+          },
+          {
+            "name": "setattr",
+            "path": null
+          },
+          {
+            "name": "add",
+            "path": null
+          },
+          {
+            "name": "commit",
+            "path": null
+          },
+          {
+            "name": "refresh",
+            "path": null
+          }
+        ],
+        "statements": []
+      }
+    ],
+    "classes": [],
+    "statements": [],
+    "type": "code",
+    "language": "python",
+    "loc": 106
+  },
+  {
+    "path": "backend/routes/supplier.py",
+    "importFiles": [],
+    "externalImports": [
+      "fastapi",
+      "db.schema",
+      "typing",
+      "db.models",
+      "db.database",
+      "sqlalchemy.orm"
+    ],
+    "functions": [
+      {
+        "name": "get_db",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 10,
+        "endLine": 15,
+        "calls": [
+          {
+            "name": "SessionLocal",
+            "path": null
+          },
+          {
+            "name": "close",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "create_supplier",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 20,
+        "endLine": 28,
+        "calls": [
+          {
+            "name": "Supplier",
+            "path": "db.models"
+          },
+          {
+            "name": "dict",
+            "path": null
+          },
+          {
+            "name": "add",
+            "path": null
+          },
+          {
+            "name": "commit",
+            "path": null
+          },
+          {
+            "name": "refresh",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "read_supplier",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 32,
+        "endLine": 39,
+        "calls": [
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "read_suppliers",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 43,
+        "endLine": 50,
+        "calls": [
+          {
+            "name": "all",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "delete_supplier",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 54,
+        "endLine": 62,
+        "calls": [
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          },
+          {
+            "name": "delete",
+            "path": null
+          },
+          {
+            "name": "commit",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "update_supplier",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 66,
+        "endLine": 80,
+        "calls": [
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          },
+          {
+            "name": "items",
+            "path": null
+          },
+          {
+            "name": "dict",
+            "path": null
+          },
+          {
+            "name": "setattr",
+            "path": null
+          },
+          {
+            "name": "add",
+            "path": null
+          },
+          {
+            "name": "commit",
+            "path": null
+          },
+          {
+            "name": "refresh",
+            "path": null
+          }
+        ],
+        "statements": []
+      }
+    ],
+    "classes": [],
+    "statements": [],
+    "type": "code",
+    "language": "python",
+    "loc": 81
+  },
+  {
+    "path": "backend/routes/outwardslip.py",
+    "importFiles": [],
+    "externalImports": [
+      "fastapi",
+      "db.schema",
+      "typing",
+      "db.models",
+      "db.database",
+      "sqlalchemy.orm"
+    ],
+    "functions": [
+      {
+        "name": "get_db",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 10,
+        "endLine": 15,
+        "calls": [
+          {
+            "name": "SessionLocal",
+            "path": null
+          },
+          {
+            "name": "close",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "create_outwardslip",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 19,
+        "endLine": 35,
+        "calls": [
+          {
+            "name": "OutwardSlip",
+            "path": "db.models"
+          },
+          {
+            "name": "dict",
+            "path": null
+          },
+          {
+            "name": "add",
+            "path": null
+          },
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          },
+          {
+            "name": "commit",
+            "path": null
+          },
+          {
+            "name": "refresh",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "read_outwardslip",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 38,
+        "endLine": 45,
+        "calls": [
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "read_outwardslips",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 48,
+        "endLine": 55,
+        "calls": [
+          {
+            "name": "all",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "delete_outwardslip",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 58,
+        "endLine": 66,
+        "calls": [
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          },
+          {
+            "name": "delete",
+            "path": null
+          },
+          {
+            "name": "commit",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "update_outwardslip",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 69,
+        "endLine": 83,
+        "calls": [
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          },
+          {
+            "name": "items",
+            "path": null
+          },
+          {
+            "name": "dict",
+            "path": null
+          },
+          {
+            "name": "setattr",
+            "path": null
+          },
+          {
+            "name": "add",
+            "path": null
+          },
+          {
+            "name": "commit",
+            "path": null
+          },
+          {
+            "name": "refresh",
+            "path": null
+          }
+        ],
+        "statements": []
+      }
+    ],
+    "classes": [],
+    "statements": [],
+    "type": "code",
+    "language": "python",
+    "loc": 84
+  },
+  {
+    "path": "backend/routes/outwardbar.py",
+    "importFiles": [],
+    "externalImports": [
+      "fastapi",
+      "db.schema",
+      "typing",
+      "db.models",
+      "db.database",
+      "sqlalchemy.orm"
+    ],
+    "functions": [
+      {
+        "name": "get_db",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 10,
+        "endLine": 15,
+        "calls": [
+          {
+            "name": "SessionLocal",
+            "path": null
+          },
+          {
+            "name": "close",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "create_outwardbarcode",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 20,
+        "endLine": 28,
+        "calls": [
+          {
+            "name": "OutwardBarcode",
+            "path": "db.models"
+          },
+          {
+            "name": "dict",
+            "path": null
+          },
+          {
+            "name": "add",
+            "path": null
+          },
+          {
+            "name": "commit",
+            "path": null
+          },
+          {
+            "name": "refresh",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "read_outwardbarcode",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 31,
+        "endLine": 38,
+        "calls": [
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "read_outwardbarcodes",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 41,
+        "endLine": 48,
+        "calls": [
+          {
+            "name": "all",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          }
+        ],
+        "statements": []
+      }
+    ],
+    "classes": [],
+    "statements": [],
+    "type": "code",
+    "language": "python",
+    "loc": 50
+  },
+  {
+    "path": "backend/routes/outward.py",
+    "importFiles": [],
+    "externalImports": [
+      "fastapi",
+      "db.schema",
+      "db.models",
+      "typing",
+      "db.database",
+      "sqlalchemy.orm"
+    ],
+    "functions": [
+      {
+        "name": "get_db",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 11,
+        "endLine": 16,
+        "calls": [
+          {
+            "name": "SessionLocal",
+            "path": null
+          },
+          {
+            "name": "close",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "create_outward",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 21,
+        "endLine": 36,
+        "calls": [
+          {
+            "name": "Outward",
+            "path": "db.models"
+          },
+          {
+            "name": "dict",
+            "path": null
+          },
+          {
+            "name": "add",
+            "path": null
+          },
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          },
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "commit",
+            "path": null
+          },
+          {
+            "name": "refresh",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "read_outward",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 40,
+        "endLine": 47,
+        "calls": [
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "read_outwards",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 50,
+        "endLine": 57,
+        "calls": [
+          {
+            "name": "all",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          }
+        ],
+        "statements": []
+      }
+    ],
+    "classes": [],
+    "statements": [],
+    "type": "code",
+    "language": "python",
+    "loc": 59
+  },
+  {
+    "path": "backend/routes/items.py",
+    "importFiles": [],
+    "externalImports": [
+      "fastapi",
+      "db.schema",
+      "typing",
+      "db.models",
+      "db.database",
+      "sqlalchemy.orm",
+      "auth.dependencies"
+    ],
+    "functions": [
+      {
+        "name": "get_db",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 12,
+        "endLine": 17,
+        "calls": [
+          {
+            "name": "SessionLocal",
+            "path": null
+          },
+          {
+            "name": "close",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "create_item",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 22,
+        "endLine": 30,
+        "calls": [
+          {
+            "name": "Item",
+            "path": "db.models"
+          },
+          {
+            "name": "dict",
+            "path": null
+          },
+          {
+            "name": "add",
+            "path": null
+          },
+          {
+            "name": "commit",
+            "path": null
+          },
+          {
+            "name": "refresh",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "read_item",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 34,
+        "endLine": 41,
+        "calls": [
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "read_items",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [
+          "user"
+        ],
+        "startLine": 45,
+        "endLine": 56,
+        "calls": [
+          {
+            "name": "Depends",
+            "path": null
+          },
+          {
+            "name": "all",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "delete_item",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [
+          "user"
+        ],
+        "startLine": 60,
+        "endLine": 70,
+        "calls": [
+          {
+            "name": "Depends",
+            "path": null
+          },
+          {
+            "name": "require_roles",
+            "path": null
+          },
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          },
+          {
+            "name": "delete",
+            "path": null
+          },
+          {
+            "name": "commit",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "update_item",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 74,
+        "endLine": 88,
+        "calls": [
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          },
+          {
+            "name": "items",
+            "path": null
+          },
+          {
+            "name": "dict",
+            "path": null
+          },
+          {
+            "name": "setattr",
+            "path": null
+          },
+          {
+            "name": "add",
+            "path": null
+          },
+          {
+            "name": "commit",
+            "path": null
+          },
+          {
+            "name": "refresh",
+            "path": null
+          }
+        ],
+        "statements": []
+      }
+    ],
+    "classes": [],
+    "statements": [],
+    "type": "code",
+    "language": "python",
+    "loc": 89
+  },
+  {
+    "path": "backend/routes/inwards.py",
+    "importFiles": [],
+    "externalImports": [
+      "fastapi",
+      "db.schema",
+      "typing",
+      "db.models",
+      "db.database",
+      "sqlalchemy.orm"
+    ],
+    "functions": [
+      {
+        "name": "get_db",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 11,
+        "endLine": 16,
+        "calls": [
+          {
+            "name": "SessionLocal",
+            "path": null
+          },
+          {
+            "name": "close",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "create_inward",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 21,
+        "endLine": 38,
+        "calls": [
+          {
+            "name": "Inward",
+            "path": "db.models"
+          },
+          {
+            "name": "dict",
+            "path": null
+          },
+          {
+            "name": "add",
+            "path": null
+          },
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          },
+          {
+            "name": "commit",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "read_inwards",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 41,
+        "endLine": 48,
+        "calls": [
+          {
+            "name": "all",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "read_inward",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 52,
+        "endLine": 59,
+        "calls": [
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "update_inward",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 63,
+        "endLine": 81,
+        "calls": [
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          },
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          },
+          {
+            "name": "items",
+            "path": null
+          },
+          {
+            "name": "dict",
+            "path": null
+          },
+          {
+            "name": "setattr",
+            "path": null
+          },
+          {
+            "name": "add",
+            "path": null
+          },
+          {
+            "name": "commit",
+            "path": null
+          },
+          {
+            "name": "refresh",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "delete_inward",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 85,
+        "endLine": 96,
+        "calls": [
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          },
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          },
+          {
+            "name": "delete",
+            "path": null
+          },
+          {
+            "name": "commit",
+            "path": null
+          }
+        ],
+        "statements": []
+      }
+    ],
+    "classes": [],
+    "statements": [],
+    "type": "code",
+    "language": "python",
+    "loc": 96
+  },
+  {
+    "path": "backend/db/schema.py",
+    "importFiles": [],
+    "externalImports": [
+      "pydantic",
+      "typing",
+      "datetime"
+    ],
+    "functions": [],
+    "classes": [
+      {
+        "name": "WorkerBase",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "BaseModel",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 5,
+        "endLine": 8
+      },
+      {
+        "name": "WorkerCreate",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "WorkerBase",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 10,
+        "endLine": 11
+      },
+      {
+        "name": "Worker",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "WorkerBase",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 13,
+        "endLine": 15
+      },
+      {
+        "name": "WorkerRead",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "WorkerBase",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 17,
+        "endLine": 21
+      },
+      {
+        "name": "Config",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": null,
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 20,
+        "endLine": 21
+      },
+      {
+        "name": "SupplierBase",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "BaseModel",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 24,
+        "endLine": 28
+      },
+      {
+        "name": "SupplierCreate",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "SupplierBase",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 30,
+        "endLine": 31
+      },
+      {
+        "name": "SupplierRead",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "SupplierBase",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 33,
+        "endLine": 36
+      },
+      {
+        "name": "Config",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": null,
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 35,
+        "endLine": 36
+      },
+      {
+        "name": "ItemBase",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "BaseModel",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 40,
+        "endLine": 44
+      },
+      {
+        "name": "ItemCreate",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "ItemBase",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 46,
+        "endLine": 47
+      },
+      {
+        "name": "ItemRead",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "ItemBase",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 49,
+        "endLine": 52
+      },
+      {
+        "name": "Config",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": null,
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 51,
+        "endLine": 52
+      },
+      {
+        "name": "InwardBase",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "BaseModel",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 56,
+        "endLine": 61
+      },
+      {
+        "name": "InwardCreate",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "InwardBase",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 63,
+        "endLine": 64
+      },
+      {
+        "name": "InwardRead",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "InwardBase",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 66,
+        "endLine": 69
+      },
+      {
+        "name": "Config",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": null,
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 68,
+        "endLine": 69
+      },
+      {
+        "name": "OutwardSlipBase",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "BaseModel",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 73,
+        "endLine": 78
+      },
+      {
+        "name": "OutwardSlipCreate",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "OutwardSlipBase",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 80,
+        "endLine": 81
+      },
+      {
+        "name": "OutwardSlipRead",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "OutwardSlipBase",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 83,
+        "endLine": 87
+      },
+      {
+        "name": "Config",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": null,
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 86,
+        "endLine": 87
+      },
+      {
+        "name": "OutwardBase",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "BaseModel",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 92,
+        "endLine": 97
+      },
+      {
+        "name": "OutwardCreate",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "OutwardBase",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 99,
+        "endLine": 100
+      },
+      {
+        "name": "OutwardRead",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "OutwardBase",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 102,
+        "endLine": 105
+      },
+      {
+        "name": "Config",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": null,
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 104,
+        "endLine": 105
+      },
+      {
+        "name": "OutwardBarcodeBase",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "BaseModel",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 109,
+        "endLine": 111
+      },
+      {
+        "name": "OutwardBarcodeCreate",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "OutwardBarcodeBase",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 113,
+        "endLine": 114
+      },
+      {
+        "name": "OutwardBarcodeRead",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "OutwardBarcodeBase",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 116,
+        "endLine": 119
+      },
+      {
+        "name": "Config",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": null,
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 118,
+        "endLine": 119
+      },
+      {
+        "name": "UserCreate",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "BaseModel",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 122,
+        "endLine": 126
+      }
+    ],
+    "statements": [],
+    "type": "code",
+    "language": "python",
+    "loc": 127
+  },
+  {
+    "path": "backend/db/models.py",
+    "importFiles": [],
+    "externalImports": [
+      "sqlalchemy",
+      "sqlalchemy.orm",
+      "datetime"
+    ],
+    "functions": [],
+    "classes": [
+      {
+        "name": "Worker",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "Base",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 7,
+        "endLine": 16
+      },
+      {
+        "name": "Supplier",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "Base",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 19,
+        "endLine": 28
+      },
+      {
+        "name": "Item",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "Base",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 31,
+        "endLine": 41
+      },
+      {
+        "name": "Inward",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "Base",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 44,
+        "endLine": 55
+      },
+      {
+        "name": "OutwardSlip",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "Base",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 59,
+        "endLine": 71
+      },
+      {
+        "name": "Outward",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "Base",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 75,
+        "endLine": 86
+      },
+      {
+        "name": "OutwardBarcode",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "Base",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 90,
+        "endLine": 98
+      },
+      {
+        "name": "User",
+        "type": "class",
+        "visibility": "public",
+        "isAbstract": false,
+        "extends": "Base",
+        "implements": [],
+        "decorators": [],
+        "constructorParams": [],
+        "methods": [],
+        "statements": [],
+        "startLine": 101,
+        "endLine": 108
+      }
+    ],
+    "statements": [],
+    "type": "code",
+    "language": "python",
+    "loc": 108
+  },
+  {
+    "path": "backend/db/database.py",
+    "importFiles": [],
+    "externalImports": [
+      "sqlalchemy",
+      "sqlalchemy.orm",
+      "sqlalchemy.ext.declarative",
+      "dotenv",
+      "os"
+    ],
+    "functions": [],
+    "classes": [],
+    "statements": [],
+    "type": "code",
+    "language": "python",
+    "loc": 14
+  },
+  {
+    "path": "backend/auth/password_handler.py",
+    "importFiles": [],
+    "externalImports": [
+      "passlib.context"
+    ],
+    "functions": [
+      {
+        "name": "hash_password",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 11,
+        "endLine": 12,
+        "calls": [
+          {
+            "name": "hash",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "verify_password",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 16,
+        "endLine": 17,
+        "calls": [
+          {
+            "name": "verify",
+            "path": null
+          }
+        ],
+        "statements": []
+      }
+    ],
+    "classes": [],
+    "statements": [],
+    "type": "code",
+    "language": "python",
+    "loc": 17
+  },
+  {
+    "path": "backend/auth/jwt_handler.py",
+    "importFiles": [],
+    "externalImports": [
+      "jose",
+      "datetime",
+      "dotenv",
+      "os"
+    ],
+    "functions": [
+      {
+        "name": "create_access_token",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 14,
+        "endLine": 27,
+        "calls": [
+          {
+            "name": "copy",
+            "path": null
+          },
+          {
+            "name": "utcnow",
+            "path": null
+          },
+          {
+            "name": "timedelta",
+            "path": null
+          },
+          {
+            "name": "update",
+            "path": null
+          },
+          {
+            "name": "encode",
+            "path": null
+          }
+        ],
+        "statements": []
+      }
+    ],
+    "classes": [],
+    "statements": [],
+    "type": "code",
+    "language": "python",
+    "loc": 27
+  },
+  {
+    "path": "backend/auth/dependencies.py",
+    "importFiles": [],
+    "externalImports": [
+      "fastapi",
+      "fastapi.security",
+      "jose",
+      "auth.jwt_handler"
+    ],
+    "functions": [
+      {
+        "name": "get_current_user",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [
+          "token"
+        ],
+        "startLine": 12,
+        "endLine": 34,
+        "calls": [
+          {
+            "name": "Depends",
+            "path": null
+          },
+          {
+            "name": "decode",
+            "path": null
+          },
+          {
+            "name": "get",
+            "path": null
+          },
+          {
+            "name": "get",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "require_roles",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 36,
+        "endLine": 44,
+        "calls": [
+          {
+            "name": "Depends",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "role_checker",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [
+          "user"
+        ],
+        "startLine": 37,
+        "endLine": 43,
+        "calls": [
+          {
+            "name": "Depends",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          }
+        ],
+        "statements": []
+      }
+    ],
+    "classes": [],
+    "statements": [],
+    "type": "code",
+    "language": "python",
+    "loc": 44
+  },
+  {
+    "path": "backend/auth/auth_routes.py",
+    "importFiles": [],
+    "externalImports": [
+      "fastapi",
+      "fastapi.security",
+      "sqlalchemy.orm",
+      "db.database",
+      "db",
+      "db.schema",
+      "auth.password_handler",
+      "auth.jwt_handler"
+    ],
+    "functions": [
+      {
+        "name": "get_db",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [],
+        "startLine": 20,
+        "endLine": 25,
+        "calls": [
+          {
+            "name": "SessionLocal",
+            "path": null
+          },
+          {
+            "name": "close",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "login",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [
+          "form_data",
+          "db"
+        ],
+        "startLine": 29,
+        "endLine": 62,
+        "calls": [
+          {
+            "name": "Depends",
+            "path": null
+          },
+          {
+            "name": "Depends",
+            "path": null
+          },
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "print",
+            "path": null
+          },
+          {
+            "name": "print",
+            "path": null
+          },
+          {
+            "name": "print",
+            "path": null
+          },
+          {
+            "name": "verify_password",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          },
+          {
+            "name": "verify_password",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          },
+          {
+            "name": "create_access_token",
+            "path": null
+          }
+        ],
+        "statements": []
+      },
+      {
+        "name": "register",
+        "type": "function_definition",
+        "visibility": "public",
+        "kind": "function",
+        "params": [
+          "db"
+        ],
+        "startLine": 66,
+        "endLine": 94,
+        "calls": [
+          {
+            "name": "Depends",
+            "path": null
+          },
+          {
+            "name": "first",
+            "path": null
+          },
+          {
+            "name": "filter",
+            "path": null
+          },
+          {
+            "name": "query",
+            "path": null
+          },
+          {
+            "name": "HTTPException",
+            "path": null
+          },
+          {
+            "name": "hash_password",
+            "path": null
+          },
+          {
+            "name": "User",
+            "path": null
+          },
+          {
+            "name": "strip",
+            "path": null
+          },
+          {
+            "name": "add",
+            "path": null
+          },
+          {
+            "name": "commit",
+            "path": null
+          },
+          {
+            "name": "refresh",
+            "path": null
+          }
+        ],
+        "statements": []
+      }
+    ],
+    "classes": [],
+    "statements": [],
+    "type": "code",
+    "language": "python",
+    "loc": 95
+  },
+  {
+    "path": ".breeze.json",
+    "type": "config",
+    "language": "config",
+    "loc": 5,
+    "metadata": {
+      "topLevelKeys": [
+        "apiKey",
+        "projectUuid"
+      ],
+      "importFiles": [],
+      "externalImports": [],
+      "functions": [],
+      "classes": []
+    }
+  },
+  {
+    "path": ".gitignore",
+    "type": "config",
+    "language": "config",
+    "loc": 6,
+    "metadata": {
+      "importFiles": [],
+      "externalImports": [],
+      "functions": [],
+      "classes": []
+    }
+  }
+]
